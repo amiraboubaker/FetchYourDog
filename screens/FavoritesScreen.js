@@ -1,11 +1,12 @@
 // screens/FavoritesScreen.js
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons'; // Ensure this package is installed
 import { fetchDogImage } from '../api/dogApi'; // Import fetchDogImage
 import { useFavorites } from '../context/FavoriteContext'; // Import useFavorites
 
 const FavoritesScreen = ({ navigation }) => {
-    const { favorites } = useFavorites(); // Use favorites from context
+    const { favorites, addFavorite, removeFavorite } = useFavorites(); // Use favorites, addFavorite, and removeFavorite from context
     const [favoriteImages, setFavoriteImages] = useState({}); // State to hold images for favorites
 
     useEffect(() => {
@@ -26,6 +27,21 @@ const FavoritesScreen = ({ navigation }) => {
     const renderFavoriteItem = ({ item }) => (
         <View style={styles.itemContainer}>
             <Text style={styles.itemText}>{item}</Text>
+            <TouchableOpacity 
+                onPress={() => {
+                    if (favorites.includes(item)) {
+                        removeFavorite(item); // Remove from favorites if it's already there
+                    } else {
+                        addFavorite(item); // Add to favorites if it's not
+                    }
+                }}
+            >
+                <Icon 
+                    name={favorites.includes(item) ? "favorite" : "favorite-border"} // Change icon based on favorite status
+                    size={30} 
+                    color={favorites.includes(item) ? "red" : "black"} // Change color based on favorite status
+                />
+            </TouchableOpacity>
             <Image
                 source={{ uri: favoriteImages[item] }}
                 style={styles.favoriteImage}
@@ -40,7 +56,7 @@ const FavoritesScreen = ({ navigation }) => {
                 <FlatList
                     data={favorites}
                     renderItem={renderFavoriteItem}
-                    keyExtractor={(item) => item}
+                    keyExtractor={(item) => item} // Use breed name as key
                 />
             ) : (
                 <Text style={styles.emptyText}>No favorites found.</Text>
@@ -69,6 +85,9 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.2,
         shadowRadius: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     itemText: {
         fontSize: 18,

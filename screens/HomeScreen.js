@@ -31,7 +31,7 @@ const HomeScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image source={require('../assets/userProfile.png')} style={styles.profileImage} />
+                <Image source={require('../assets/dog.png')} style={styles.profileImage} />
                 <Text style={styles.username}>Welcome, User</Text>
             </View>
             <View style={styles.searchContainer}>
@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     profileImage: {
-        width: 50,
-        height: 50,
+        width: 80,
+        height: 80,
         borderRadius: 25,
         marginRight: 10,
     },
