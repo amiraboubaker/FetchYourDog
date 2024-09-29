@@ -1,7 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { fetchDogBreeds } from '../api/dogApi';
+import { fetchDogBreeds } from '../api/dogApi'; // Make sure the import path is correct
 import Card from '../components/Card';
 import { useFavorites } from '../context/FavoriteContext';
 
@@ -14,6 +14,7 @@ const HomeScreen = ({ navigation }) => {
     useEffect(() => {
         const loadBreeds = async () => {
             const breeds = await fetchDogBreeds();
+            console.log("Breeds:", breeds); // Log the breeds fetched
             setDogBreeds(breeds);
             setLoading(false);
         };
@@ -98,6 +99,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 5,
         marginBottom: 20,
+        backgroundColor: 'white'
     },
     searchInput: {
         flex: 1,

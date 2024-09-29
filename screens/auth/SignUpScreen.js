@@ -16,7 +16,7 @@ const SignUpScreen = ({ navigation, setUsers }) => { // Accept setUsers from pro
 
     return (
         <View style={styles.container}>
-            <Image source={require('../../assets/logo.png')} style={styles.logo} />
+            <Image source={require('../../assets/logo1.png')} style={styles.logo} />
             <TextInput
                 style={styles.input}
                 placeholder="Username"

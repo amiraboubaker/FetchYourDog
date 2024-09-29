@@ -1,7 +1,7 @@
 // screens/FavoritesScreen.js
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // Ensure this package is installed
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { fetchDogImage } from '../api/dogApi'; // Import fetchDogImage
 import { useFavorites } from '../context/FavoriteContext'; // Import useFavorites
 
@@ -51,7 +51,6 @@ const FavoritesScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Your Favorites</Text>
             {favorites.length > 0 ? (
                 <FlatList
                     data={favorites}

@@ -1,28 +1,70 @@
-const API_BASE_URL = 'https://dog.ceo/api'; // Base URL for the Dog API
+const API_BASE_URL = 'https://api.thedogapi.com/v1/breeds';  // Correct API URL
+const API_KEY = 'live_5z28V2wtZJdPcXu51WhsU7OnWuqqKquK9jRvLPU64n74C81QgM8OAtAgFK0XKRzn'; 
 
 // Fetch a list of dog breeds
 export const fetchDogBreeds = async () => {
     try {
-        const response = await fetch(`${API_BASE_URL}/breeds/list/all`);
+        const response = await fetch(API_BASE_URL, {  // Fetch directly from breeds endpoint
+            method: 'GET',
+            headers: {
+                'x-api-key': API_KEY,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
-        
-        // Extract breed names
-        const breeds = Object.keys(data.message);
+        console.log("Fetched Breeds Data:", data); // Log the fetched data
+        const breeds = data.map(breed => breed.name); // Extract breed names
         return breeds;
     } catch (error) {
         console.error("Error fetching dog breeds:", error);
-        return []; // Return an empty array in case of error
+        return [];
     }
 };
 
-// Fetch a random dog image for a specific breed
+// Fetch details for a specific breed
+export const fetchDogDetails = async (breedId) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/${breedId}`, {  // Use breedId
+            method: 'GET',
+            headers: {
+                'x-api-key': API_KEY,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Fetched Dog Details:", data); // Log the details
+        return data;
+    } catch (error) {
+        console.error("Error fetching dog details:", error);
+        return null;
+    }
+};
+
 export const fetchDogImage = async (breed) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/breed/${breed}/images/random`);
+        const response = await fetch(`https://api.thedogapi.com/v1/images/search?breed=${breed}`, {  // Use correct search endpoint
+            method: 'GET',
+            headers: {
+                'x-api-key': API_KEY,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
-        return data.message; // Return the URL of the dog image
+        return data[0]?.url || ''; 
     } catch (error) {
         console.error("Error fetching dog image:", error);
-        return ''; // Return an empty string in case of error
+        return '';
     }
 };

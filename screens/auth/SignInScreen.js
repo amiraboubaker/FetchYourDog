@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
+import { Alert, Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-const SignInScreen = ({ navigation, users }) => { // Ensure users prop is correctly received
+const SignInScreen = ({ navigation, users }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -18,7 +18,7 @@ const SignInScreen = ({ navigation, users }) => { // Ensure users prop is correc
 
     return (
         <View style={styles.container}>
-            <Image source={require('../../assets/log.png')} style={styles.logo} />
+            <Image source={require('../../assets/logo1.png')} style={styles.logo} />
             <TextInput
                 style={styles.input}
                 placeholder="Email"
