@@ -16,7 +16,7 @@ const App = () => {
     return (
         <FavoriteProvider>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="SignIn">
+                <Stack.Navigator initialRouteName="Home">
                     <Stack.Screen name="Home" component={HomeScreen} />
                     <Stack.Screen name="Detail" component={DetailScreen} />
                     <Stack.Screen name="SignIn">

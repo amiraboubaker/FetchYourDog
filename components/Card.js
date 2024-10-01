@@ -7,7 +7,7 @@ const Card = ({ breed, onPress, onFavorite, isFavorite }) => {
         <TouchableOpacity onPress={onPress} style={styles.cardContainer}>
              <Text style={styles.breedText}>{breed}</Text>
             <Image
-                source={{ uri: `https://dog.ceo/api/breed/${breed}/images/random` }}
+                source={{ uri: `https://api.thedogapi.com/v1/breeds/${breed}/images/random` }}
                 style={styles.image}
             />
             {/* Heart icon for adding to favorites */}
