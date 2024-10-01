@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 const Card = ({ breed, image, onPress, onFavorite, isFavorite }) => {
     return (
@@ -30,11 +30,12 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 8,
         position: 'relative',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        height: 200
     },
     image: {
         width: '100%',
-        height: 100,
+        height: 135,
         borderRadius: 8,
     },
     breedText: {
