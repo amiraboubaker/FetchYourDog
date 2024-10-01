@@ -1,15 +1,15 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const Card = ({ breed, onPress, onFavorite, isFavorite }) => {
+const Card = ({ breed, image, onPress, onFavorite, isFavorite }) => {
     return (
         <TouchableOpacity onPress={onPress} style={styles.cardContainer}>
-             <Text style={styles.breedText}>{breed}</Text>
             <Image
-                source={{ uri: `https://api.thedogapi.com/v1/breeds/${breed}/images/random` }}
+                source={{ uri: image }} // Use the image prop to display the breed image
                 style={styles.image}
             />
+            <Text style={styles.breedText}>{breed}</Text>
             {/* Heart icon for adding to favorites */}
             <TouchableOpacity onPress={() => onFavorite(breed)} style={styles.favoriteIcon}>
                 <MaterialIcons
@@ -36,6 +36,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 100,
         borderRadius: 8,
+    },
+    breedText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginTop: 10,
     },
     favoriteIcon: {
         position: 'absolute',

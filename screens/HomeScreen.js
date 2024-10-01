@@ -21,9 +21,9 @@ const HomeScreen = ({ navigation }) => {
         loadBreeds(); 
     }, []);
 
-    const filteredBreeds = dogBreeds.filter(breed => 
-        breed.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredBreeds = dogBreeds.filter(breed =>
+        breed.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );    
 
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" />;
@@ -45,18 +45,20 @@ const HomeScreen = ({ navigation }) => {
                 />
             </View>
             <FlatList
-                data={filteredBreeds}
-                renderItem={({ item }) => (
-                    <Card
-                        breed={item}
-                        onPress={() => navigation.navigate('Detail', { breed: item })}
-                        onFavorite={addFavorite}
-                        isFavorite={favorites.includes(item)}
-                    />
-                )}
-                keyExtractor={(item) => item}
-                contentContainerStyle={styles.flatListContainer}
-            />
+    data={filteredBreeds}
+    renderItem={({ item }) => (
+        <Card
+            breed={item.name} // Pass breed name
+            image={item.image} // Pass breed image
+            onPress={() => navigation.navigate('Detail', { breed: item.name })}
+            onFavorite={() => addFavorite(item.name)}
+            isFavorite={favorites.includes(item.name)}
+        />
+    )}
+    keyExtractor={(item) => item.name}
+    contentContainerStyle={styles.flatListContainer}
+/>
+
             <View style={styles.navigationContainer}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                     <MaterialIcons name="home" size={30} color="black" />

@@ -17,7 +17,7 @@ export const fetchDogBreeds = async () => {
 
         const data = await response.json();
         console.log("Fetched Breeds Data:", data); // Log the fetched data
-        const breeds = data.map(breed => breed.name); // Extract breed names
+        const breeds = data.map(breed => ({name:breed.name, image: breed.image.url})); // Extract breed names
         return breeds;
     } catch (error) {
         console.error("Error fetching dog breeds:", error);
