@@ -25,10 +25,10 @@ export const fetchDogBreeds = async () => {
     }
 };
 
-// Fetch details for a specific breed
-export const fetchDogDetails = async (breedId) => {
+// Fetch details for a specific breed by name
+export const fetchDogDetails = async (breedName) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/${breedId}`, {  // Use breedId
+        const response = await fetch(`https://api.thedogapi.com/v1/breeds/search?q=${breedName}`, {
             method: 'GET',
             headers: {
                 'x-api-key': API_KEY,
@@ -40,8 +40,7 @@ export const fetchDogDetails = async (breedId) => {
         }
 
         const data = await response.json();
-        console.log("Fetched Dog Details:", data); // Log the details
-        return data;
+        return data[0]; // Return the first match for the breed
     } catch (error) {
         console.error("Error fetching dog details:", error);
         return null;

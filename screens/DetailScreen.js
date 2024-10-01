@@ -5,7 +5,7 @@ import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { fetchDogDetails, fetchDogImage } from '../api/dogApi';
 
 const DetailScreen = ({ route }) => {
-    const { breed } = route.params;  // Assume breed contains the breed ID or name
+    const { breed } = route.params;  // Breed is expected to be the breed name
     const [dogImage, setDogImage] = useState('');
     const [dogDetails, setDogDetails] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -13,16 +13,15 @@ const DetailScreen = ({ route }) => {
     useEffect(() => {
         const loadImageAndDetails = async () => {
             try {
-                const image = await fetchDogImage(breed); // Assuming this returns the image URL
-                const details = await fetchDogDetails(breed); // This should return full details
+                const image = await fetchDogImage(breed); // Fetch image based on breed name
+                const details = await fetchDogDetails(breed); // Fetch details based on breed name
                 
-                // Make sure to fetch additional details, adjust if necessary
-                setDogImage(image);
-                setDogDetails(details);
+                setDogImage(image);   // Set the fetched image
+                setDogDetails(details); // Set the fetched breed details
             } catch (error) {
-                console.error(error);
+                console.error("Error loading dog details:", error);
             } finally {
-                setLoading(false);
+                setLoading(false);   // Stop loading spinner once data is fetched
             }
         };
 
@@ -39,13 +38,13 @@ const DetailScreen = ({ route }) => {
             <Image source={{ uri: dogImage }} style={styles.image} />
             {dogDetails && (
                 <View style={styles.detailsContainer}>
-                    <Text>Bred For: {dogDetails.bred_for}</Text>
-                    <Text>Breed Group: {dogDetails.breed_group}</Text>
-                    <Text>Height: {dogDetails.height.metric} cm</Text>
-                    <Text>Weight: {dogDetails.weight.metric} kg</Text>
-                    <Text>Life Expectancy: {dogDetails.life_span}</Text>
-                    <Text>Origin: {dogDetails.origin}</Text>
-                    <Text>Temperament: {dogDetails.temperament}</Text>
+                    <Text>Bred For: {dogDetails.bred_for || 'N/A'}</Text>
+                    <Text>Breed Group: {dogDetails.breed_group || 'N/A'}</Text>
+                    <Text>Height: {dogDetails.height?.metric || 'N/A'} cm</Text>
+                    <Text>Weight: {dogDetails.weight?.metric || 'N/A'} kg</Text>
+                    <Text>Life Expectancy: {dogDetails.life_span || 'N/A'}</Text>
+                    <Text>Origin: {dogDetails.origin || 'N/A'}</Text>
+                    <Text>Temperament: {dogDetails.temperament || 'N/A'}</Text>
                 </View>
             )}
         </View>
