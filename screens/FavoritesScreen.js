@@ -1,79 +1,69 @@
-// Import necessary libraries and components
+// screens/FavoritesScreen.js
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { fetchDogImage } from '../api/dogApi'; // Import function to fetch dog image by breed
-import { useFavorites } from '../context/FavoriteContext'; // Import custom hook for managing favorite breeds
+import { fetchDogImage } from '../api/dogApi'; // Import fetchDogImage
+import { useFavorites } from '../context/FavoriteContext'; // Import useFavorites
 
-// FavoritesScreen component to display a list of favorite dog breeds
 const FavoritesScreen = ({ navigation }) => {
-    // Destructure favorites, addFavorite, and removeFavorite from custom hook
-    const { favorites, addFavorite, removeFavorite } = useFavorites(); 
-    const [favoriteImages, setFavoriteImages] = useState({}); // State to hold the images of favorite breeds
+    const { favorites, addFavorite, removeFavorite } = useFavorites(); // Use favorites, addFavorite, and removeFavorite from context
+    const [favoriteImages, setFavoriteImages] = useState({}); // State to hold images for favorites
 
-    // Fetch and load images for favorite breeds when the component mounts or favorites change
     useEffect(() => {
         const loadFavoriteImages = async () => {
-            const images = {}; // Object to store breed image URLs
+            const images = {};
             for (const breed of favorites) {
-                const image = await fetchDogImage(breed); // Fetch image for each favorite breed
-                images[breed] = image; // Store image URL in the images object
+                const image = await fetchDogImage(breed);
+                images[breed] = image;
             }
-            setFavoriteImages(images); // Update state with fetched images
+            setFavoriteImages(images);
         };
 
         if (favorites.length > 0) {
-            loadFavoriteImages(); // Load images only if there are favorites
+            loadFavoriteImages();
         }
-    }, [favorites]); // Re-run effect when favorites change
+    }, [favorites]);
 
-    // Render each favorite item (dog breed)
     const renderFavoriteItem = ({ item }) => (
         <View style={styles.itemContainer}>
-            <Text style={styles.itemText}>{item}</Text> {/* Display breed name */}
-            {/* Touchable to add/remove from favorites */}
+            <Text style={styles.itemText}>{item}</Text>
             <TouchableOpacity 
                 onPress={() => {
                     if (favorites.includes(item)) {
-                        removeFavorite(item); // Remove breed from favorites if it's already a favorite
+                        removeFavorite(item); // Remove from favorites if it's already there
                     } else {
-                        addFavorite(item); // Add breed to favorites if it's not already
+                        addFavorite(item); // Add to favorites if it's not
                     }
                 }}
             >
-                {/* Show filled heart if breed is a favorite, otherwise show an empty heart */}
                 <Icon 
-                    name={favorites.includes(item) ? "favorite" : "favorite-border"} 
+                    name={favorites.includes(item) ? "favorite" : "favorite-border"} // Change icon based on favorite status
                     size={30} 
-                    color={favorites.includes(item) ? "red" : "black"} // Red heart if favorite, black otherwise
+                    color={favorites.includes(item) ? "red" : "black"} // Change color based on favorite status
                 />
             </TouchableOpacity>
-            {/* Display the image of the favorite breed */}
             <Image
-                source={{ uri: favoriteImages[item] }} // Image URL from favoriteImages state
-                style={styles.favoriteImage} // Styling for the image
+                source={{ uri: favoriteImages[item] }}
+                style={styles.favoriteImage}
             />
         </View>
     );
 
     return (
         <View style={styles.container}>
-            {/* If there are favorites, render them in a FlatList */}
             {favorites.length > 0 ? (
                 <FlatList
-                    data={favorites} // List of favorite breeds
-                    renderItem={renderFavoriteItem} // Function to render each breed
+                    data={favorites}
+                    renderItem={renderFavoriteItem}
                     keyExtractor={(item) => item} // Use breed name as key
                 />
             ) : (
-                // If no favorites, show a message
                 <Text style={styles.emptyText}>No favorites found.</Text>
             )}
         </View>
     );
 };
 
-// Styles for various elements in the FavoritesScreen component
 const styles = StyleSheet.create({
     container: {
         flex: 1,

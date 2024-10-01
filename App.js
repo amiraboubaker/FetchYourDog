@@ -8,28 +8,28 @@ import DetailScreen from './screens/DetailScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import HomeScreen from './screens/HomeScreen';
 
-const Stack = createStackNavigator(); // Create a stack navigator instance
+const Stack = createStackNavigator();
 
 const App = () => {
-    const [users, setUsers] = useState([]); // State to manage the list of users
+    const [users, setUsers] = useState([]); // State to manage users
 
     return (
-        <FavoriteProvider> {/* Provide the favorite context to the app */}
-            <NavigationContainer> {/* Wrap the app in NavigationContainer for navigation functionality */}
-                <Stack.Navigator initialRouteName="SignIn"> {/* Set the initial route to SignIn */}
-                    <Stack.Screen name="Home" component={HomeScreen} /> {/* Home screen in the stack */}
-                    <Stack.Screen name="Detail" component={DetailScreen} /> {/* Detail screen in the stack */}
-                    <Stack.Screen name="SignIn"> {/* SignIn screen in the stack */}
-                        {props => <SignInScreen {...props} users={users} />} {/* Pass users state to SignInScreen */}
+        <FavoriteProvider>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="SignIn">
+                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="Detail" component={DetailScreen} />
+                    <Stack.Screen name="SignIn">
+                        {props => <SignInScreen {...props} users={users} />}
                     </Stack.Screen>
-                    <Stack.Screen name="SignUp"> {/* SignUp screen in the stack */}
-                        {props => <SignUpScreen {...props} setUsers={setUsers} />} {/* Pass setUsers function to SignUpScreen */}
+                    <Stack.Screen name="SignUp">
+                        {props => <SignUpScreen {...props} setUsers={setUsers} />}
                     </Stack.Screen>
-                    <Stack.Screen name="Favorites" component={FavoritesScreen} /> {/* Favorites screen in the stack */}
+                    <Stack.Screen name="Favorites" component={FavoritesScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </FavoriteProvider>
     );
 };
 
-export default App; 
+export default App;

@@ -1,54 +1,52 @@
-import { MaterialIcons } from '@expo/vector-icons'; // Import MaterialIcons for using vector icons
-import React from 'react'; // Import React
-import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native'; // Import necessary components from React Native
+import { MaterialIcons } from '@expo/vector-icons';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-// Define the Card component that displays a breed's image and details
 const Card = ({ breed, image, onPress, onFavorite, isFavorite }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={styles.cardContainer}> {/* TouchableOpacity for the card, triggering onPress */}
+        <TouchableOpacity onPress={onPress} style={styles.cardContainer}>
             <Image
                 source={{ uri: image }} // Use the image prop to display the breed image
-                style={styles.image} // Apply styles to the image
+                style={styles.image}
             />
-            <Text style={styles.breedText}>{breed}</Text> {/* Display the breed name */}
+            <Text style={styles.breedText}>{breed}</Text>
             {/* Heart icon for adding to favorites */}
-            <TouchableOpacity onPress={() => onFavorite(breed)} style={styles.favoriteIcon}> {/* Trigger onFavorite when pressed */}
+            <TouchableOpacity onPress={() => onFavorite(breed)} style={styles.favoriteIcon}>
                 <MaterialIcons
-                    name={isFavorite ? 'favorite' : 'favorite-border'} // Change icon based on favorite status
-                    size={24} // Icon size
-                    color={isFavorite ? 'tomato' : 'gray'} // Change icon color based on favorite status
+                    name={isFavorite ? 'favorite' : 'favorite-border'}
+                    size={24}
+                    color={isFavorite ? 'tomato' : 'gray'}
                 />
             </TouchableOpacity>
         </TouchableOpacity>
     );
 };
 
-// Define styles for the Card component
 const styles = StyleSheet.create({
     cardContainer: {
-        margin: 10, 
-        padding: 10, 
-        borderWidth: 1, 
-        borderColor: '#ccc', 
-        borderRadius: 8, 
+        margin: 10,
+        padding: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
         position: 'relative',
-        backgroundColor: 'white', 
+        backgroundColor: 'white',
         height: 200
     },
     image: {
-        width: '100%', 
+        width: '100%',
         height: 135,
-        borderRadius: 8, 
+        borderRadius: 8,
     },
     breedText: {
-        fontSize: 16, 
-        fontWeight: 'bold', 
-        marginTop: 10, 
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginTop: 10,
     },
     favoriteIcon: {
-        position: 'absolute', 
-        top: 10, 
-        right: 10, 
+        position: 'absolute',
+        top: 10,
+        right: 10,
     },
 });
 
