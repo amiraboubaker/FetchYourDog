@@ -6,11 +6,10 @@ const Card = ({ breed, image, onPress, onFavorite, isFavorite }) => {
     return (
         <TouchableOpacity onPress={onPress} style={styles.cardContainer}>
             <Image
-                source={{ uri: image }} // Use the image prop to display the breed image
+                source={{ uri: image }}
                 style={styles.image}
             />
             <Text style={styles.breedText}>{breed}</Text>
-            {/* Heart icon for adding to favorites */}
             <TouchableOpacity onPress={() => onFavorite(breed)} style={styles.favoriteIcon}>
                 <MaterialIcons
                     name={isFavorite ? 'favorite' : 'favorite-border'}

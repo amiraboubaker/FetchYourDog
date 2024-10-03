@@ -1,11 +1,11 @@
 // DetailScreen.js
 
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { fetchDogDetails, fetchDogImage } from '../api/dogApi';
-
+import Loader from '../components/Loader';
 const DetailScreen = ({ route }) => {
-    const { breed } = route.params;  // Breed is expected to be the breed name
+    const { breed } = route.params;
     const [dogImage, setDogImage] = useState('');
     const [dogDetails, setDogDetails] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -13,15 +13,15 @@ const DetailScreen = ({ route }) => {
     useEffect(() => {
         const loadImageAndDetails = async () => {
             try {
-                const image = await fetchDogImage(breed); // Fetch image based on breed name
-                const details = await fetchDogDetails(breed); // Fetch details based on breed name
-                
-                setDogImage(image);   // Set the fetched image
-                setDogDetails(details); // Set the fetched breed details
+                const image = await fetchDogImage(breed);
+                const details = await fetchDogDetails(breed);
+
+                setDogImage(image);
+                setDogDetails(details);
             } catch (error) {
                 console.error("Error loading dog details:", error);
             } finally {
-                setLoading(false);   // Stop loading spinner once data is fetched
+                setLoading(false);
             }
         };
 
@@ -29,7 +29,7 @@ const DetailScreen = ({ route }) => {
     }, [breed]);
 
     if (loading) {
-        return <ActivityIndicator size="large" color="#0000ff" />;
+        return <Loader />;
     }
 
     return (

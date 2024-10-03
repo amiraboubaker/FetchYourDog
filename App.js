@@ -11,7 +11,7 @@ import HomeScreen from './screens/HomeScreen';
 const Stack = createStackNavigator();
 
 const App = () => {
-    const [users, setUsers] = useState([]); // State to manage users
+    const [users, setUsers] = useState([]);
 
     return (
         <FavoriteProvider>

@@ -7,7 +7,7 @@ const SignInScreen = ({ navigation, users }) => {
 
     const handleSignIn = () => {
         const user = users.find(user => user.email === email && user.password === password);
-        
+
         if (user) {
             console.log('Signing in with:', { email, password });
             navigation.navigate('Home');

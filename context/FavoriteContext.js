@@ -13,7 +13,7 @@ export const FavoriteProvider = ({ children }) => {
     };
 
     const removeFavorite = (breed) => {
-        setFavorites((prevFavorites) => 
+        setFavorites((prevFavorites) =>
             prevFavorites.filter((favorite) => favorite !== breed)
         );
     };

@@ -6,24 +6,24 @@ import Card from '../components/Card';
 import { useFavorites } from '../context/FavoriteContext';
 
 const HomeScreen = ({ navigation }) => {
-    const [dogBreeds, setDogBreeds] = useState([]); 
-    const [loading, setLoading] = useState(true); 
-    const [searchQuery, setSearchQuery] = useState(''); 
-    const { favorites, addFavorite } = useFavorites(); 
+    const [dogBreeds, setDogBreeds] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
+    const { favorites, addFavorite } = useFavorites();
 
     useEffect(() => {
         const loadBreeds = async () => {
             const breeds = await fetchDogBreeds();
-            console.log("Breeds:", breeds); // Log the breeds fetched
+            console.log("Breeds:", breeds);
             setDogBreeds(breeds);
             setLoading(false);
         };
-        loadBreeds(); 
+        loadBreeds();
     }, []);
 
     const filteredBreeds = dogBreeds.filter(breed =>
         breed.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );    
+    );
 
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" />;
@@ -45,19 +45,19 @@ const HomeScreen = ({ navigation }) => {
                 />
             </View>
             <FlatList
-    data={filteredBreeds}
-    renderItem={({ item }) => (
-        <Card
-            breed={item.name} // Pass breed name
-            image={item.image} // Pass breed image
-            onPress={() => navigation.navigate('Detail', { breed: item.name })}
-            onFavorite={() => addFavorite(item.name)}
-            isFavorite={favorites.includes(item.name)}
-        />
-    )}
-    keyExtractor={(item) => item.name}
-    contentContainerStyle={styles.flatListContainer}
-/>
+                data={filteredBreeds}
+                renderItem={({ item }) => (
+                    <Card
+                        breed={item.name}
+                        image={item.image}
+                        onPress={() => navigation.navigate('Detail', { breed: item.name })}
+                        onFavorite={() => addFavorite(item.name)}
+                        isFavorite={favorites.includes(item.name)}
+                    />
+                )}
+                keyExtractor={(item) => item.name}
+                contentContainerStyle={styles.flatListContainer}
+            />
 
             <View style={styles.navigationContainer}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>

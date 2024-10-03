@@ -1,17 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-const SignUpScreen = ({ navigation, setUsers }) => { // Accept setUsers from props
+const SignUpScreen = ({ navigation, setUsers }) => {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState(''); // Added email state
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const passwordInput = useRef(null);
 
     const handleSignUp = () => {
-        // Save user data to a higher state (or you can use a global state or context)
+
         setUsers(prevUsers => [...prevUsers, { username, email, password }]);
         console.log('Signing up with:', { username, email, password });
-        navigation.navigate('SignIn'); // Navigate to SignIn after successful signup
+        navigation.navigate('SignIn');
     };
 
     return (
@@ -35,7 +35,7 @@ const SignUpScreen = ({ navigation, setUsers }) => { // Accept setUsers from pro
                 autoCapitalize="none"
                 autoCorrect={false}
                 returnKeyType="next"
-                keyboardType="email-address" // Use email keyboard
+                keyboardType="email-address"
             />
             <TextInput
                 ref={passwordInput}
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         padding: 20,
-        backgroundColor: 'white', // Set background color to pure white
+        backgroundColor: 'white',
     },
     logo: {
         width: 350,

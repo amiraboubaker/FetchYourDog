@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { fetchDogImage } from '../api/dogApi'; // Import fetchDogImage
-import { useFavorites } from '../context/FavoriteContext'; // Import useFavorites
+import { fetchDogImage } from '../api/dogApi';
+import { useFavorites } from '../context/FavoriteContext';
 
 const FavoritesScreen = ({ navigation }) => {
-    const { favorites, addFavorite, removeFavorite } = useFavorites(); // Use favorites, addFavorite, and removeFavorite from context
-    const [favoriteImages, setFavoriteImages] = useState({}); // State to hold images for favorites
+    const { favorites, addFavorite, removeFavorite } = useFavorites();
+    const [favoriteImages, setFavoriteImages] = useState({});
 
     useEffect(() => {
         const loadFavoriteImages = async () => {
@@ -27,19 +27,19 @@ const FavoritesScreen = ({ navigation }) => {
     const renderFavoriteItem = ({ item }) => (
         <View style={styles.itemContainer}>
             <Text style={styles.itemText}>{item}</Text>
-            <TouchableOpacity 
+            <TouchableOpacity
                 onPress={() => {
                     if (favorites.includes(item)) {
-                        removeFavorite(item); // Remove from favorites if it's already there
+                        removeFavorite(item);
                     } else {
-                        addFavorite(item); // Add to favorites if it's not
+                        addFavorite(item);
                     }
                 }}
             >
-                <Icon 
-                    name={favorites.includes(item) ? "favorite" : "favorite-border"} // Change icon based on favorite status
-                    size={30} 
-                    color={favorites.includes(item) ? "red" : "black"} // Change color based on favorite status
+                <Icon
+                    name={favorites.includes(item) ? "favorite" : "favorite-border"}
+                    size={30}
+                    color={favorites.includes(item) ? "red" : "black"}
                 />
             </TouchableOpacity>
             <Image
@@ -55,7 +55,7 @@ const FavoritesScreen = ({ navigation }) => {
                 <FlatList
                     data={favorites}
                     renderItem={renderFavoriteItem}
-                    keyExtractor={(item) => item} // Use breed name as key
+                    keyExtractor={(item) => item}
                 />
             ) : (
                 <Text style={styles.emptyText}>No favorites found.</Text>
